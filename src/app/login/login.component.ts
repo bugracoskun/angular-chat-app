@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
   ){}
 
   async userLogin() {
-    this.router.navigate(['/main']);
-    /* const config = {
+    //this.router.navigate(['/main']);
+    const config = {
       method: 'post',
       url: 'https://localhost:4242/login',
       data: {
@@ -35,10 +35,12 @@ export class LoginComponent implements OnInit {
     }
 
     if (loginResult.data.login) {
+      this.router.navigate(['/main']);
+      localStorage.setItem('nexttoken', loginResult.data.token);
       alert("Giriş Başarılı");
     } else {
       alert("Giriş Bilgilerini Kontrol Ediniz");
-    } */
+    }
   }
 
 

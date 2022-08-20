@@ -32,31 +32,23 @@
             </div>
             <div id="contacts">
                 <ul>
-                    <li class="contact">
-                        <div class="wrap">
-                            <span class="contact-status online"></span>
-                            <img src="./assets/profiles/sapaz.jpg" alt="" style="  width:40px;
+                    <div *ngFor="let user of users">
+                        <li class="{{'contact '+user.activeClass}}" (click)="selectUser(user)">
+                            <div class="wrap">
+                                <span class="contact-status online"></span>
+                                <img src="{{'http://localhost:8081/avatar/'+user.name+'/44'}}" alt="" style="  width:40px;
                             height:40px;
                             overflow: hidden;
                             border-radius: 50%;
                             object-fit: cover;" />
-                            <div class="meta meta--onhover">
-                                <p class="name">Can Sapaz</p>
-                                <p class="preview">Last Message</p>
+                                <div class="meta meta--onhover">
+                                    <p class="name">{{user.displayName}}</p>
+                                    <p class="preview">{{user.lastMessage.message}}</p>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    <hr>
-                    <li class="contact active">
-                        <div class="wrap">
-                            <span class="contact-status busy"></span>
-                            <img src="./assets/profiles/babir.jpg" alt="" />
-                            <div class="meta meta--onhover">
-                                <p class="name">Sedanur Babir</p>
-                                <p class="preview">Last Message</p>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                        <hr>
+                    </div>
                 </ul>
             </div>
             <div id="bottom-bar">
@@ -67,8 +59,8 @@
         </div>
         <div class="content">
             <div class="contact-profile">
-                <img src="./assets/profiles/babir.jpg" alt="" />
-                <p>Sedanur Babir</p>
+                <img src="{{'http://localhost:8081/avatar/'+selectedUser.name+'/44'}}" alt="" />
+                <p>{{selectedUser.displayName}}</p>
                 <div class="social-media">
                     <i class="fa fa-refresh fa-lg" aria-hidden="true"></i>
                     <i class="fa fa-video-camera fa-lg" aria-hidden="true"></i>
@@ -77,52 +69,21 @@
             </div>
             <div class="messages">
                 <ul>
-                    <li class="sent">
-                        <img src="./assets/profiles/coskun.jpg" alt="" />
-                        <p>Ben bile emin olmadığım halde jüriyi sana inandırayım ki?!<span
-                                class="time time-left text-muted small">13:21</span></p>
-                    </li>
-                    <li class="replies">
-                        <img src="./assets/profiles/babir.jpg" alt="" />
-                        <p>Duvara sırtını dayadığında, şu lanet şeyi kır.<span
-                                class="time time-right text-muted small">13:21</span></p>
-                    </li>
-                    <li class="replies">
-                        <img src="./assets/profiles/babir.jpg" alt="" />
-                        <p>Bahaneler şampiyonluk kazandırmaz.<span class="time time-right text-muted small">13:21</span>
-                        </p>
-                    </li>
-                    <li class="sent">
-                        <img src="./assets/profiles/coskun.jpg" alt="" />
-                        <p>Ah evet, bunu sana Michael Jordan mı söyledi?<span
-                                class="time time-left text-muted small">13:21</span></p>
-                    </li>
-                    <li class="replies">
-                        <img src="./assets/profiles/babir.jpg" alt="" />
-                        <p>Hayır, ona ben söyledim.<span class="time time-right text-muted small">13:21</span></p>
-                    </li>
-                    <li class="replies">
-                        <img src="./assets/profiles/babir.jpg" alt="" />
-                        <p>Biri kafanıza silah dayadığında seçenekleriniz nelerdir?<span
-                                class="time time-right text-muted small">13:21</span></p>
-                    </li>
-                    <li class="sent">
-                        <img src="./assets/profiles/coskun.jpg" alt="" />
-                        <p>Neden bahsediyorsun? Ya dediklerini yaparsın ya da seni vururlar.<span
-                                class="time time-left text-muted small">13:21</span></p>
-                    </li>
-                    <li class="replies">
-                        <img src="./assets/profiles/babir.jpg" alt="" />
-                        <p>Yanlış. Silahı alırsın ya da daha büyüğünü çıkarırsın. Ya da onların blöfünü yaparsın. Veya
-                            diğer yüz kırk altı şeyden herhangi birini yaparsınız.<span
-                                class="time time-right text-muted small">13:21</span></p>
-                    </li>
+                    <div *ngFor="let message of messages">
+                        <li *ngIf="message.messageType == 'comment'"
+                            class="{{message.actorId === 'bugra.coskun' ? 'replies' : 'sent'}}">
+                            <img src="{{'http://localhost:8081/avatar/'+message.actorId+'/44'}}" alt="" />
+                            <p>{{message.message}}<span
+                                    class="{{message.actorId === 'bugra.coskun' ? 'time time-right text-muted small': 'time time-left text-muted small'}}">{{timestampToDate(message.timestamp)}}</span>
+                            </p>
+                        </li>
+                    </div>
                 </ul>
             </div>
             <div class="message-input">
                 <div class="wrap">
                     <input type="text" placeholder="Mesaj Yaz..." />
-                    <i class="fa fa-paperclip attachment" aria-hidden="true" ></i>
+                    <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
                     <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                 </div>
             </div>

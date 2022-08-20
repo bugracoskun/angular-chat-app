@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const axios = require('axios');
+
+const userManager = require('../userManager.js');
+const chatManager = require('../chatManager.js');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -12,33 +14,43 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/login', async function (req, res, next) {
-    try {
-        console.log("Login isteği geldi");
-        const username = req.body.username;
-        const password = req.body.password;
+    console.log("Login isteği geldi");
+    const username = req.body.username;
+    const password = req.body.password;
 
-        const decoded = Buffer.from(username + ":" + password, 'utf8').toString('base64');
-        const config = {
-            method: 'get',
-            url: new URL('/ocs/v2.php/core/getapppassword', process.env.NEXTCLOUD_URL).href,
-            headers: {
-                'OCS-APIRequest': 'true',
-                'Authorization': 'Basic ' + decoded,
-            }
-        };
+    let result = await userManager.login({ username, password });
 
-        await axios(config);
-
-        let result = { status: true, data: "Giriş Başarılı", login: true }
-
+    if (result) {
         res.status(200).send(result);
-    } catch (error) {
-        console.log(error);
-        if (error.response != undefined && error.response.status == 401) {
-            res.status(200).send({ status: true, data: "şifre yanlış", login: false });
-        } else {
-            res.status(200).send({ status: false, data: "Hata", login: false, message: error });
-        }
+    } else {
+        res.status(400).send(result);
+    }
+});
+
+router.get('/getUsers/:nexttoken', async function (req, res, next) {
+    console.log("getUsers isteği geldi");
+    let nexttoken = req.params.nexttoken;
+
+    let result = await chatManager.getUsers({ nexttoken });
+
+    if (result) {
+        res.status(200).send(result);
+    } else {
+        res.status(400).send(result);
+    }
+});
+
+router.get('/getMessages/:chatToken/:nexttoken', async function (req, res, next) {
+    console.log("getUsers isteği geldi");
+    let nexttoken = req.params.nexttoken;
+    let chatToken = req.params.chatToken;
+
+    let result = await chatManager.getMessages({ chatToken, nexttoken });
+
+    if (result) {
+        res.status(200).send(result);
+    } else {
+        res.status(400).send(result);
     }
 });
 

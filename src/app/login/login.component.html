@@ -1,0 +1,27 @@
+<div id="loginItem">
+    <mat-card id="loginMat" >
+        <img src="../../assets/images/chatIcon.png" width="100" height="100">
+        <mat-card-content>
+            <form #loginForm="ngForm">
+                <h2>Chatipy'a Hoşgeldiniz</h2>
+                <mat-error *ngIf="!loginValid">
+                    The username and password were not recognized
+                </mat-error>
+                <mat-form-field>
+                    <input matInput placeholder="Email" [(ngModel)]="username" name="username" required>
+                    <mat-error>
+                        Lütfen mail adresini giriniz
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="password" placeholder="Şifre" [(ngModel)]="password" name="password"
+                        required>
+                    <mat-error>
+                        Lütfen şifreyi giriniz
+                    </mat-error>
+                </mat-form-field>
+                <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid" (click)="userLogin()">Giriş Yap</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

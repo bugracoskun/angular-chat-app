@@ -14,11 +14,25 @@ export class LoginComponent implements OnInit {
   password: string = '';
 
   constructor(
-    private router:Router
-  ){}
+    private router: Router
+  ) { }
+
+  signUpPanel() {
+    const container: any = document.getElementById('container');
+    container.className = "container right-panel-active";
+  }
+
+  signInPanel() {
+    const container: any = document.getElementById('container');
+    container.className = "container left-panel-active";
+  }
+
 
   async userLogin() {
     this.router.navigate(['/main']);
+    const container: any = document.getElementById('container');
+    container.classList.remove("right-panel-active");
+
     /* const config = {
       method: 'post',
       url: 'https://localhost:4242/login',

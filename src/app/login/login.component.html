@@ -1,4 +1,4 @@
-<div id="loginItem">
+<!-- <div id="loginItem">
     <mat-card id="loginMat" >
         <img src="../../assets/images/chatIcon.png" width="100" height="100">
         <mat-card-content>
@@ -24,4 +24,51 @@
             </form>
         </mat-card-content>
     </mat-card>
+</div> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form action="#">
+            <h1>Hesap Oluştur</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fa fa-facebook-f" aria-hidden="true"></i></a>
+                <a href="#" class="social"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                <a href="#" class="social"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+            </div>
+            <span>E-posta adresinizle kaydolun</span>
+            <input type="text" placeholder="Kullanıcı Adı" />
+            <input type="email" placeholder="E-posta" />
+            <input type="password" placeholder="Şifre" />
+            <button>Kayıt Ol</button>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form action="#">
+            <h1>Giriş Yap</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="#" class="social"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                <a href="#" class="social"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+            </div>
+            <span>ya da var olan bir hesapla giriş yapın.</span>
+            <input type="email" placeholder="E-posta" />
+            <input type="password" placeholder="Şifre" />
+            <a href="#">Şifremi Unuttum</a>
+            <button (click)="userLogin()">GİRİŞ YAP</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Chatipy'a <br> Hoşgeldiniz</h1>
+                <p></p>
+                <button (click)="signInPanel()" class="ghost" id="signIn">GİRİŞ YAP</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Chatipy'a <br> Hoşgeldiniz</h1>
+                <p></p>
+                <button (click)="signUpPanel()" class="ghost" id="signUp">KAYIT OL</button>
+            </div>
+        </div>
+    </div>
 </div>
